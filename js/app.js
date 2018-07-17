@@ -1,8 +1,10 @@
 // Enemies our player must avoid
-var Enemy = function() {
+var Enemy = function(y, speed) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
-
+    this.x = 0.1;
+    this.y = y;
+    this.speed = speed;
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
@@ -11,6 +13,19 @@ var Enemy = function() {
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
+    // chech that x is not larger than canvas width; canvas width currently set to 505 in engine.js
+    const speeds = [-100, -75, -50, -25, 0, 25, 50, 75, 100, 125, 150, 175];
+    const yPosition = [60, 150, 225];
+    if (this.x <= 505) {
+        this.x += (this.speed + this.variableSpeed) * dt ;
+    } else {
+        this.x = -100;
+        const yIndex = Math.floor(Math.random() * 3);
+        this.y = yPosition[yIndex];
+        const speedIndex = Math.floor(Math.random() * 12);
+        this.variableSpeed = speeds[speedIndex];
+    }
+    
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
@@ -24,12 +39,36 @@ Enemy.prototype.render = function() {
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
+var Player = function() {
+
+}
+
+Player.prototype.update = function() {
+
+}
+
+Player.prototype.render = function() {
+
+}
+
+Player.prototype.handleInput = function() {
+
+}
 
 
 // Now instantiate your objects.
+const enemy1 = new Enemy(60, 200);
+const enemy2 = new Enemy(150, 200);
+const enemy3 = new Enemy(225, 200);
+const enemy4 = new Enemy(60, 150);
+
+
+
 // Place all enemy objects in an array called allEnemies
+var allEnemies = [enemy1, enemy2, enemy3, enemy4];
 // Place the player object in a variable called player
 
+var player = new Player();
 
 
 // This listens for key presses and sends the keys to your
