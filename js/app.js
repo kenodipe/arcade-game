@@ -15,7 +15,7 @@ var Enemy = function(y, speed) {
 Enemy.prototype.update = function(dt) {
     // chech that x is not larger than canvas width; canvas width currently set to 505 in engine.js
     const speeds = [-100, -75, -50, -25, 0, 25, 50, 75, 100, 125, 150, 175];
-    const yPosition = [60, 150, 225];
+    const yPosition = [60, 145, 230];
     if (this.x <= 505) {
         this.x += (this.speed + this.variableSpeed) * dt ;
     } else {
@@ -40,7 +40,9 @@ Enemy.prototype.render = function() {
 // This class requires an update(), render() and
 // a handleInput() method.
 var Player = function() {
-
+    this.x = 202;
+    this.y = 410;
+    this.sprite = 'images/char-boy.png';
 }
 
 Player.prototype.update = function() {
@@ -48,18 +50,37 @@ Player.prototype.update = function() {
 }
 
 Player.prototype.render = function() {
-
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
 
-Player.prototype.handleInput = function() {
+Player.prototype.handleInput = function(direction) {
+
+    switch (direction) {
+        case 'up':
+            this.y -= 85;
+            console.log('up key pressed');
+            break;
+        case 'down':
+            this.y += 85;
+            console.log('down key pressed');
+            break;
+        case 'left':
+            this.x -= 100;
+            console.log('left key pressed');
+            break;
+        case 'right':
+            this.x += 100;
+            console.log('right key pressed');
+            break;
+    }
 
 }
 
 
 // Now instantiate your objects.
 const enemy1 = new Enemy(60, 200);
-const enemy2 = new Enemy(150, 200);
-const enemy3 = new Enemy(225, 200);
+const enemy2 = new Enemy(145, 200);
+const enemy3 = new Enemy(230, 200);
 const enemy4 = new Enemy(60, 150);
 
 
