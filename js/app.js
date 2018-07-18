@@ -2,7 +2,7 @@
 var Enemy = function(y, speed) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
-    this.x = 0.1;
+    this.x = 0;
     this.y = y;
     this.speed = speed;
 
@@ -10,14 +10,24 @@ var Enemy = function(y, speed) {
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
 };
+// set enemy boundary points
+Enemy.prototype.xMax = 505; 
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
     // chech that x is not larger than canvas width; canvas width currently set to 505 in engine.js
+
+    // You should multiply any movement by the dt parameter
+    // which will ensure the game runs at the same speed for
+    // all computers.
+     // check collision
     const speeds = [-100, -75, -50, -25, 0, 25, 50, 75, 100, 125, 150, 175];
     const yPosition = [60, 145, 230];
     if (this.x <= 505) {
+        if (this.isCollision()) {
+            player.resetPosition();
+        }
         this.x += (this.speed + this.variableSpeed) * dt ;
     } else {
         this.x = -100;
@@ -26,11 +36,13 @@ Enemy.prototype.update = function(dt) {
         const speedIndex = Math.floor(Math.random() * 12);
         this.variableSpeed = speeds[speedIndex];
     }
+}
+
+Enemy.prototype.isCollision = function() {
+    return (Math.abs(this.y - player.y) === 10) && (Math.abs(this.x - player.x) < 75);
     
-    // You should multiply any movement by the dt parameter
-    // which will ensure the game runs at the same speed for
-    // all computers.
-};
+}
+
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
@@ -115,6 +127,7 @@ var allEnemies = [enemy1, enemy2, enemy3, enemy4];
 // Place the player object in a variable called player
 
 var player = new Player();
+
 
 
 // This listens for key presses and sends the keys to your
