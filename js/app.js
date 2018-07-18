@@ -5,6 +5,7 @@ var Enemy = function(y, speed) {
     this.x = 0.1;
     this.y = y;
     this.speed = speed;
+
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
@@ -45,8 +46,26 @@ var Player = function() {
     this.sprite = 'images/char-boy.png';
 }
 
-Player.prototype.update = function() {
+// set max and min for x and y 
+Player.prototype.yMax = 410;
+Player.prototype.yMin = 0;
+Player.prototype.xMax = 402;
+Player.prototype.xMin = 2;
 
+Player.prototype.update = function() {
+    if (this.x >= this.xMax ) {
+        this.x = this.xMax;
+    } 
+    if (this.x <= this.xMin) {
+        this.x = this.xMin;
+    }
+    // if player is in the water zone
+    if (this.y <= this.yMin ) {
+        this.resetPosition();
+    }
+    if (this.y >= this.yMax) {
+        this.y = this.yMax;
+    }
 }
 
 Player.prototype.render = function() {
@@ -74,6 +93,12 @@ Player.prototype.handleInput = function(direction) {
             break;
     }
 
+}
+
+Player.prototype.resetPosition = function() {
+    // starting point for player
+    this.x = 202;
+    this.y = 410;
 }
 
 
