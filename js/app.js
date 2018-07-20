@@ -195,6 +195,3 @@ const replay = document.getElementById('replay');
 replay.addEventListener('click', () => {
     location.reload();
 });
-
-// close dialog when cancel button is clicked
-document.getElementById('cancel').addEventListener('click', () => dialog.close());
