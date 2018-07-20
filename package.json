@@ -1,0 +1,29 @@
+{
+  "name": "arcade-game",
+  "version": "1.0.0",
+  "description": "arcade game, fend nanodegree",
+  "main": "js/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint js/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kenodipe/arcade-game.git"
+  },
+  "keywords": [
+    "arcade",
+    "game",
+    "fend"
+  ],
+  "author": "Kehinde Onadipe, Udacity",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kenodipe/arcade-game/issues"
+  },
+  "homepage": "https://github.com/kenodipe/arcade-game#readme",
+  "devDependencies": {
+    "eslint": "^5.1.0",
+    "eslint-config-google": "^0.9.1"
+  }
+}
