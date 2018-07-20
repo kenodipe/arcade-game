@@ -4,8 +4,33 @@
     <meta charset="UTF-8">
     <title>Effective JavaScript: Frogger</title>
     <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,400i" rel="stylesheet">
 </head>
 <body>
+    <div>
+        <h1>Arcade Game</h1>
+        <div id="score-board">
+            <ion-icon id="heart1" name="heart"></ion-icon>
+            <ion-icon id="heart2" name="heart"></ion-icon>
+            <ion-icon id="heart3" name="heart"></ion-icon>
+            <h2>Score: <span id="score">0</span></h2>
+        </div>
+        <dialog id="dialog">
+            <form method="dialog">
+            <section>
+                <h2>Game Over!</h2>
+                <h4>You Accumulated <span id="points"></span> Points!</h4>
+                <h3>Nice Try!!!</h4>
+            </section>
+            <menu>
+                <button id="cancel" type="reset">Cancel</button>
+                <button type="submit" id="replay">Play Again</button>
+            </menu>
+            </form>
+        </dialog>
+    </div>
+
+    <script src="https://unpkg.com/ionicons@4.2.4/dist/ionicons.js"></script>
     <script src="js/resources.js"></script>
     <script src="js/app.js"></script>
     <script src="js/engine.js"></script>

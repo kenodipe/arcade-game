@@ -26,7 +26,19 @@ Enemy.prototype.update = function(dt) {
     const yPosition = [60, 145, 230];
     if (this.x <= 505) {
         if (this.isCollision()) {
-            player.resetPosition();
+            if (player.lives >= 2) {
+                reduceLives(player);
+                console.log(player.lives)
+                player.resetPosition();
+                
+            } else {
+                reduceLives(player);
+                // modal
+                // ctx.resetTransform();
+                displayDialog();
+            }
+
+            
         }
         this.x += (this.speed + this.variableSpeed) * dt ;
     } else {
@@ -55,6 +67,8 @@ Enemy.prototype.render = function() {
 var Player = function() {
     this.x = 202;
     this.y = 410;
+    this.points = 0;
+    this.lives = 3;
     this.sprite = 'images/char-boy.png';
 }
 
@@ -63,6 +77,7 @@ Player.prototype.yMax = 410;
 Player.prototype.yMin = 0;
 Player.prototype.xMax = 402;
 Player.prototype.xMin = 2;
+
 
 Player.prototype.update = function() {
     if (this.x >= this.xMax ) {
@@ -73,6 +88,9 @@ Player.prototype.update = function() {
     }
     // if player is in the water zone
     if (this.y <= this.yMin ) {
+        // update score
+        // reset the player position
+        updatePlayerPoints(this);
         this.resetPosition();
     }
     if (this.y >= this.yMax) {
@@ -114,6 +132,7 @@ Player.prototype.resetPosition = function() {
 }
 
 
+
 // Now instantiate your objects.
 const enemy1 = new Enemy(60, 200);
 const enemy2 = new Enemy(145, 200);
@@ -142,3 +161,40 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
+
+/**
+ * helper functio that updates player points and update html
+ * @param {*} player 
+ */
+const updatePlayerPoints = (player) => {
+    player.points += 100;
+    const score = document.getElementById('score');
+    score.innerText = player.points;
+}
+
+/**
+ * helper function that reduce player lives and update html
+ * @param {*} player 
+ */
+const reduceLives = (player) => {
+    
+    const icon = document.getElementById(`heart${player.lives}`);
+    if (player.lives >= 1) icon.setAttribute('name', 'heart-empty');
+    player.lives -= 1;
+}
+
+const dialog = document.getElementById('dialog');
+// display game end dialog
+const displayDialog = () => {
+    const points = document.getElementById('points');
+    points.innerHTML = player.points;
+    if (!dialog.open) dialog.showModal(); 
+}
+
+const replay = document.getElementById('replay');
+replay.addEventListener('click', () => {
+    location.reload();
+});
+
+// close dialog when cancel button is clicked
+document.getElementById('cancel').addEventListener('click', () => dialog.close());
