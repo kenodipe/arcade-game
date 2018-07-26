@@ -1,11 +1,15 @@
 // Enemies our player must avoid
 
-
-var Enemy = function(y, speed) {
-    // Variables applied to each of our instances go here,
-    // we've provided one for you to get started
-    this.x = 0;
+var Character = function(x, y, sprite) {
+    this.x = x;
     this.y = y;
+    this.sprite = sprite;
+};
+
+
+var Enemy = function(x, y, sprite, speed) {
+    // inheritance implemented here as the superclass constructor is called
+    Character.call(this, x, y, sprite);
     this.speed = speed;
 
     // The image/sprite for our enemies, this uses
@@ -59,15 +63,11 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
-var Player = function() {
-    this.x = 202;
-    this.y = 410;
+// Player inherits from Character
+var Player = function(x, y, sprite) {
+    Character.call(this, x, y, sprite);
     this.points = 0;
     this.lives = 3;
-    this.sprite = 'images/char-boy.png';
 };
 
 // set max and min for x and y
@@ -127,18 +127,23 @@ Player.prototype.resetPosition = function() {
     this.y = 410;
 };
 
-// Now instantiate your objects.
-const enemy1 = new Enemy(60, 200);
-const enemy2 = new Enemy(145, 200);
-const enemy3 = new Enemy(230, 200);
-const enemy4 = new Enemy(60, 150);
+// Now instantiate your objects. x is initialized at 0;
+const enemySprite = 'images/enemy-bug.png';
+const enemy1 = new Enemy(0, 60, enemySprite, 200);
+const enemy2 = new Enemy(0, 145, enemySprite, 200);
+const enemy3 = new Enemy(0, 230, enemySprite, 200);
+const enemy4 = new Enemy(0, 60, enemySprite, 150);
 
 
 // Place all enemy objects in an array called allEnemies
 allEnemies = [enemy1, enemy2, enemy3, enemy4];
 // Place the player object in a variable called player
 
-var player = new Player();
+/**
+ * instantiate a player object. Default position is x = 202, y = 410
+ */
+const playerSprite = 'images/char-boy.png';
+var player = new Player(202, 410, playerSprite);
 
 
 // This listens for key presses and sends the keys to your
