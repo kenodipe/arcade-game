@@ -135,15 +135,20 @@ const enemy4 = new Enemy(0, 60, enemySprite, 150);
 
 
 // Place all enemy objects in an array called allEnemies
-allEnemies = [enemy1, enemy2, enemy3, enemy4];
 // Place the player object in a variable called player
-
 /**
  * instantiate a player object. Default position is x = 202, y = 410
  */
-const playerSprite = 'images/char-boy.png';
-var player = new Player(202, 410, playerSprite);
+allEnemies = [];
+let player = new Player(202, 410, 'images/char-boy.png');
 
+// updates player based on user selection
+const setCharacters = (playerSprite) => {
+    allEnemies = [enemy1, enemy2, enemy3, enemy4];
+    console.log(playerSprite);
+    player.sprite = playerSprite;
+    console.log(player);
+};
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
@@ -191,8 +196,23 @@ replay.addEventListener('click', () => {
     location.reload();
 });
 
+/**
+ * add on click evemt to image and handle player selection
+ */
 const playersDiv = document.getElementById('players');
 playersDiv.addEventListener('click', (e) => {
-    console.log(e.target);
+    const img = e.target;
+    const spriteSelected = img.getAttribute('src');
+    console.log(img.getAttribute('src'));
+    const option = document.getElementById('option');
+    option.innerHTML = 'Select player';
+    setCharacters(spriteSelected);
+});
+
+//
+const selectOption = document.getElementById('option');
+selectOption.addEventListener('click', function() {
+    const option = document.getElementById('option');
+    console.log(option);
 });
 
