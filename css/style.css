@@ -17,3 +17,36 @@ ion-icon {
       height: 400px;
       
   }
+
+  #game-board {
+      width: 800px;
+      margin : 0 auto;
+    
+  }
+  canvas {
+      float: left;
+      padding-left: 20px
+  }
+  aside
+{
+    border-width : 0.1em;
+    border-color : black;
+    width: 220px;
+    float: left;
+}
+
+#players {
+    color: #5f0707
+}
+
+img {
+  height: 100%;
+  
+}
+.player {
+    float: left;
+    margin: 0 auto;
+    border: 1px solid green;
+    width: 100px
+}
+

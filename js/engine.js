@@ -9,10 +9,10 @@
  * drawn but that is not the case. What's really happening is the entire "scene"
  * is being drawn over and over, presenting the illusion of animation.
  *
- * This engine makes the canvas' context (ctx) object globally available to make 
+ * This engine makes the canvas' context (ctx) object globally available to make
  * writing app.js a little simpler to work with.
  */
-
+/* eslint-disable */
 var Engine = (function(global) {
     /* Predefine the variables we'll be using within this scope,
      * create the canvas element, grab the 2D context for that canvas
@@ -23,10 +23,11 @@ var Engine = (function(global) {
         canvas = doc.createElement('canvas'),
         ctx = canvas.getContext('2d'),
         lastTime;
+        gameBoard = document.querySelector('#game-board');
 
     canvas.width = 505;
     canvas.height = 606;
-    doc.body.appendChild(canvas);
+    gameBoard.appendChild(canvas);
 
     /* This function serves as the kickoff point for the game loop itself
      * and handles properly calling the update and render methods.

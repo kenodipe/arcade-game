@@ -6,7 +6,6 @@ var Character = function(x, y, sprite) {
     this.sprite = sprite;
 };
 
-
 var Enemy = function(x, y, sprite, speed) {
     // inheritance implemented here as the superclass constructor is called
     Character.call(this, x, y, sprite);
@@ -191,3 +190,9 @@ const replay = document.getElementById('replay');
 replay.addEventListener('click', () => {
     location.reload();
 });
+
+const playersDiv = document.getElementById('players');
+playersDiv.addEventListener('click', (e) => {
+    console.log(e.target);
+});
+
