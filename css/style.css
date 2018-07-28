@@ -46,7 +46,21 @@ img {
 .player {
     float: left;
     margin: 0 auto;
-    border: 1px solid green;
+    border: 1px solid rgb(94, 31, 6);
     width: 100px
 }
 
+a {
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #024b47;
+}
+
+a:hover {
+    color: rgb(94, 31, 6);
+    text-decoration: underline;
+  }
+
+  #end {
+      color: rgb(136, 6, 6);
+  }

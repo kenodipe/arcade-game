@@ -1,3 +1,5 @@
+
+let gameStarted = false;
 // Enemies our player must avoid
 
 var Character = function(x, y, sprite) {
@@ -100,23 +102,26 @@ Player.prototype.render = function() {
 };
 
 Player.prototype.handleInput = function(direction) {
-    switch (direction) {
-        case 'up':
-            this.y -= 85;
-            console.log('up key pressed');
-            break;
-        case 'down':
-            this.y += 85;
-            console.log('down key pressed');
-            break;
-        case 'left':
-            this.x -= 100;
-            console.log('left key pressed');
-            break;
-        case 'right':
-            this.x += 100;
-            console.log('right key pressed');
-            break;
+    // only allow input when game is started
+    if (gameStarted) {
+        switch (direction) {
+            case 'up':
+                this.y -= 85;
+                console.log('up key pressed');
+                break;
+            case 'down':
+                this.y += 85;
+                console.log('down key pressed');
+                break;
+            case 'left':
+                this.x -= 100;
+                console.log('left key pressed');
+                break;
+            case 'right':
+                this.x += 100;
+                console.log('right key pressed');
+                break;
+        }
     }
 };
 
@@ -143,11 +148,9 @@ allEnemies = [];
 let player = new Player(202, 410, 'images/char-boy.png');
 
 // updates player based on user selection
-const setCharacters = (playerSprite) => {
-    allEnemies = [enemy1, enemy2, enemy3, enemy4];
+const setPlayerCharacter = (playerSprite) => {
     console.log(playerSprite);
     player.sprite = playerSprite;
-    console.log(player);
 };
 
 // This listens for key presses and sends the keys to your
@@ -202,17 +205,54 @@ replay.addEventListener('click', () => {
 const playersDiv = document.getElementById('players');
 playersDiv.addEventListener('click', (e) => {
     const img = e.target;
-    const spriteSelected = img.getAttribute('src');
-    console.log(img.getAttribute('src'));
-    const option = document.getElementById('option');
-    option.innerHTML = 'Select player';
-    setCharacters(spriteSelected);
+    if (img.nodeName === 'IMG') {
+        const spriteSelected = img.getAttribute('src');
+        console.log(img.getAttribute('src'));
+        const option = document.getElementById('option');
+        option.innerHTML = 'Select player';
+        setPlayerCharacter(spriteSelected);
+        addGameStartLink();
+    }
 });
 
-//
 const selectOption = document.getElementById('option');
 selectOption.addEventListener('click', function() {
     const option = document.getElementById('option');
     console.log(option);
 });
 
+// set game start link. On click of the link, gameStarted is set to true;
+addGameStartLink = () => {
+    const option = document.getElementById('option');
+    // create link element
+    const startLink = document.createElement('a');
+    startLink.innerText = 'Start Game';
+    startLink.setAttribute('id', 'start');
+    startLink.setAttribute('href', '#');
+    startLink.addEventListener('click', () => {
+        // start game
+       startGame();
+       // change option to restart game
+       const restartLink = document.createElement('a');
+       restartLink.innerText = 'Reset';
+       restartLink.setAttribute('id', 'end');
+       restartLink.setAttribute('href', '#');
+       restartLink.addEventListener('click', () => {
+            location.reload();
+       });
+       option.innerText = '';
+        option.appendChild(restartLink);
+    });
+    option.innerText = '';
+    option.appendChild(startLink);
+};
+
+/**
+ *  puts enemies on board
+ */
+function startGame() {
+    gameStarted = true;
+     // set enemies on board if gameStarted
+    allEnemies = [enemy1, enemy2, enemy3, enemy4];
+    console.log('game started');
+}
