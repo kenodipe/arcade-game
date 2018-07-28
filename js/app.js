@@ -2,13 +2,13 @@
 let gameStarted = false;
 // Enemies our player must avoid
 
-var Character = function(x, y, sprite) {
+let Character = function(x, y, sprite) {
     this.x = x;
     this.y = y;
     this.sprite = sprite;
 };
 
-var Enemy = function(x, y, sprite, speed) {
+let Enemy = function(x, y, sprite, speed) {
     // inheritance implemented here as the superclass constructor is called
     Character.call(this, x, y, sprite);
     this.speed = speed;
@@ -65,7 +65,7 @@ Enemy.prototype.render = function() {
 };
 
 // Player inherits from Character
-var Player = function(x, y, sprite) {
+let Player = function(x, y, sprite) {
     Character.call(this, x, y, sprite);
     this.points = 0;
     this.lives = 3;
