@@ -202,8 +202,8 @@ replay.addEventListener('click', () => {
 /**
  * add on click evemt to image and handle player selection
  */
-const playersDiv = document.getElementById('players');
-playersDiv.addEventListener('click', (e) => {
+let playersDiv = document.getElementById('players');
+let handler = function(e) {
     const img = e.target;
     if (img.nodeName === 'IMG') {
         const spriteSelected = img.getAttribute('src');
@@ -213,7 +213,9 @@ playersDiv.addEventListener('click', (e) => {
         setPlayerCharacter(spriteSelected);
         addGameStartLink();
     }
-});
+};
+
+playersDiv.addEventListener('click', handler );
 
 const selectOption = document.getElementById('option');
 selectOption.addEventListener('click', function() {
@@ -232,6 +234,8 @@ addGameStartLink = () => {
     startLink.addEventListener('click', () => {
         // start game
        startGame();
+       // make images unclickable
+       playersDiv.removeEventListener('click', handler);
        // change option to restart game
        const restartLink = document.createElement('a');
        restartLink.innerText = 'Reset';
@@ -241,7 +245,7 @@ addGameStartLink = () => {
             location.reload();
        });
        option.innerText = '';
-        option.appendChild(restartLink);
+       option.appendChild(restartLink);
     });
     option.innerText = '';
     option.appendChild(startLink);
